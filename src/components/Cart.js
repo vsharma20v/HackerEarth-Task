@@ -1,19 +1,24 @@
-import { useState } from "react";
-import Data from "../data/data";
-import Item from "./Item";
+import CartItem from "./CartItem";
+import { useContext } from "react";
+import { CartContext } from "../context/CartProvider";
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState(Data);
+  const { cart } = useContext(CartContext);
+
+  let totalItemsCount = 0;
+
+  cart.forEach((cartItem) => (totalItemsCount += cartItem.quantity));
+
   return (
     <div className="cart">
       <div className="cart-heading">
-        <p>Items ({cartItems.length})</p>
+        <p>Items ({totalItemsCount})</p>
         <p>Qty</p>
         <p>Price</p>
       </div>
       <ul className="cart-items">
-        {cartItems.map((item) => (
-          <Item key={item.id} item={item} />
+        {cart.map((item) => (
+          <CartItem key={item.id} item={item} />
         ))}
       </ul>
     </div>
