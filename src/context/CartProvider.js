@@ -6,10 +6,12 @@ export const CartContext = React.createContext({
   increaseItemQty: () => {},
   decreaseItemQty: () => {},
   removeItem: () => {},
+  resetCart: () => {},
 });
 
 const CartProvider = (props) => {
   const [cart, setCart] = useState([]);
+  const [isCartEmpty, setIsCartEmpty] = useState();
 
   useEffect(() => {
     if (localStorage.getItem("cart")) {
@@ -39,6 +41,8 @@ const CartProvider = (props) => {
         newCart[itemIndex].quantity--;
         setCart(newCart);
         localStorage.setItem("cart", JSON.stringify(newCart));
+      } else {
+        onRemoveItem(id);
       }
     }
   };
@@ -49,11 +53,19 @@ const CartProvider = (props) => {
     localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
+  const onresetCart = () => {
+    const cart = JSONData.Data.map((item) => ({ ...item, quantity: 1 }));
+    setCart(cart);
+    localStorage.removeItem("cart");
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
+
   const cartContext = {
     cart,
     increaseItemQty: onIncreaseItemQty,
     decreaseItemQty: ondecreaseItemQty,
     removeItem: onRemoveItem,
+    resetCart: onresetCart,
   };
 
   return (

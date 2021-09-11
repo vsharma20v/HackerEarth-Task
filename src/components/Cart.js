@@ -3,11 +3,13 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartProvider";
 
 const Cart = ({ onShowAlert }) => {
-  const { cart } = useContext(CartContext);
+  const { cart, resetCart } = useContext(CartContext);
 
   let totalItemsCount = 0;
 
   cart.forEach((cartItem) => (totalItemsCount += cartItem.quantity));
+
+  const resetItemsHandler = () => resetCart();
 
   return (
     <div className="cart">
@@ -16,11 +18,17 @@ const Cart = ({ onShowAlert }) => {
         <p>Qty</p>
         <p>Price</p>
       </div>
-      <ul className="cart-items">
-        {cart.map((item) => (
-          <CartItem onShowAlert={onShowAlert} key={item.id} item={item} />
-        ))}
-      </ul>
+      {cart.length > 0 ? (
+        <ul className="cart-items">
+          {cart.map((item) => (
+            <CartItem onShowAlert={onShowAlert} key={item.id} item={item} />
+          ))}
+        </ul>
+      ) : (
+        <button onClick={resetItemsHandler} className="cart-reset-btn">
+          Reset Items
+        </button>
+      )}
     </div>
   );
 };
