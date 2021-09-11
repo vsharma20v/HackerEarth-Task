@@ -33,7 +33,7 @@ const App = () => {
     <>
       <main className="main">
         <h2 className="main-heading">Order Summary</h2>
-        <div className="main-container">
+        <div className="main-sub-container">
           <Cart onShowAlert={showAlertHandler} />
           <TotalPrice />
         </div>

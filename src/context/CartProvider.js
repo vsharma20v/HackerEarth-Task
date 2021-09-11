@@ -11,7 +11,6 @@ export const CartContext = React.createContext({
 
 const CartProvider = (props) => {
   const [cart, setCart] = useState([]);
-  const [isCartEmpty, setIsCartEmpty] = useState();
 
   useEffect(() => {
     if (localStorage.getItem("cart")) {
