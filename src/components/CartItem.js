@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../context/CartProvider";
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, onShowAlert }) => {
   const { increaseItemQty, decreaseItemQty, removeItem } =
     useContext(CartContext);
 
@@ -9,7 +9,10 @@ const CartItem = ({ item }) => {
 
   const decreaseQtyHandler = () => decreaseItemQty(item.id);
 
-  const deleteItemHandler = () => removeItem(item.id);
+  const deleteItemHandler = () => {
+    removeItem(item.id);
+    onShowAlert("Item deleted successfully.");
+  };
 
   return (
     <li className="cart-item" id={item.id}>

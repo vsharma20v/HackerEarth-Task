@@ -2,7 +2,7 @@ import CartItem from "./CartItem";
 import { useContext } from "react";
 import { CartContext } from "../context/CartProvider";
 
-const Cart = () => {
+const Cart = ({ onShowAlert }) => {
   const { cart } = useContext(CartContext);
 
   let totalItemsCount = 0;
@@ -18,7 +18,7 @@ const Cart = () => {
       </div>
       <ul className="cart-items">
         {cart.map((item) => (
-          <CartItem key={item.id} item={item} />
+          <CartItem onShowAlert={onShowAlert} key={item.id} item={item} />
         ))}
       </ul>
     </div>
